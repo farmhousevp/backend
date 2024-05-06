@@ -8,6 +8,6 @@ const adminController = require("../controllers/admin");
 router.post("/update-user-info", isAuth, adminController.updateUserData);
 router.post("/login", adminController.adminLogin);
 
-router.post("/reset-admin-info", adminController.resetAdminData);
+//router.post("/reset-admin-info", adminController.resetAdminData);
 
 module.exports = router;
