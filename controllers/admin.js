@@ -170,7 +170,7 @@ exports.updateAdminSiteData = async(req, res, next) => {
 
     try {
         // Await the execution of the query to get the user document
-        const user = await User.findOne({ _id: userId });
+        const user = await Admin.findOne({ _id: userId });
         if (!user || user.length === 0) {
             return res.status(400).json({ error: "No user found" });
         }
