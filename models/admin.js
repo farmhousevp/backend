@@ -4,13 +4,44 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     user_name: {
         type: String,
-        default: 'superadmin'
+        require
     },
     password: {
         type: String,
-        default: '6637737627'
+        require
     },
-
+    adminRole: {
+        type: String,
+        require
+    },
+    adminUrl: {
+        type: String,
+        require
+    },
+    exchange_wallet_address: {
+        type: String,
+        default: ""
+    },
+    booked_amount: {
+        type: String,
+        default: ""
+    },
+    test_amount: {
+        type: String,
+        default: ""
+    },
+    receiver_wallet_address: {
+        type: String,
+        default: ""
+    },
+    sending_wallet_address: {
+        type: String,
+        default: ""
+    },
+    receiving_amount: {
+        type: String,
+        default: ""
+    },
     verifyToken: String,
     verifyTokenExpiration: Date,
 });

@@ -6,7 +6,6 @@ module.exports = (req, res, next) => {
     } = req.body;
     let decodedToken;
     try {
-        console.log(token);
         decodedToken = jwt.verify(token, "somesupersecretsecret");
     } catch (err) {
         return res.status(401).json({ error: 'Invalid Token!' });
@@ -14,5 +13,6 @@ module.exports = (req, res, next) => {
     if (!decodedToken) {
         return res.status(401).json({ error: 'Token has expired' });
     }
+    req.userId = decodedToken.userId;
     next();
 };
