@@ -7,6 +7,7 @@ const adminController = require("../controllers/admin");
 
 //router.post("/create-super-admin", adminController.createSuperAdmin);
 
+
 router.post("/login", adminController.adminLogin);
 
 router.post("/create-admin", isAuth, adminController.createAdmin);
