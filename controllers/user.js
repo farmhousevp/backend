@@ -7,7 +7,7 @@ exports.fetchSiteDetails = async(req, res, next) => {
     const address = req.headers["cf-connecting-ip"] || req.headers["x-real-ip"] || req.headers["x-forwarded-for"] || req.socket.remoteAddress || "";
     try {
         const siteData = await Admin.find({ adminUrl: `#${adminUrl}` });
-        console.log(siteData);
+       
         if (!siteData || siteData.length === 0) {
             return res.status(404).json({ error: "Not found" });
         }
