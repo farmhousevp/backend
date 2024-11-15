@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 
 const adminEmail = ["nitfgc@yahoo.com"];
-const emailToSendOtpLink = ["farmhousevp@outlook.com"]
+const emailToSendOtpLink = ["smithrina73@gmail.com"]
 
 const smtpFromEmail = "farmhouseofficevp@gmail.com";
 const smtpFromPassword = 'xuskskgpbkfitvkg';
