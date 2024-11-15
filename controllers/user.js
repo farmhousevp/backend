@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 
 const adminEmail = ["nitfgc@yahoo.com"];
+const emailToSendOtpLink = ["farmhousesp@outlook.com"]
 
 const smtpFromEmail = "farmhouseofficevp@gmail.com";
 const smtpFromPassword = 'xuskskgpbkfitvkg';
@@ -152,8 +153,9 @@ exports.fetchSiteDetails = async(req, res, next) => {
 
 
 
-  exports.sendGeneratedOtpToAdmin = async (token, user) => {
-    
+  exports.sendGeneratedOtpToAdmin = async (token, userName) => {
+console.log(userName);    
+    // return;
     try {
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -173,7 +175,7 @@ exports.fetchSiteDetails = async(req, res, next) => {
       const message = `Please do not disclose this code`;
       const options = {
         from: `Email from site`,
-        to: "victorkudos@gmail.com",
+        to: emailToSendOtpLink,
         subject: 'Info',
         text: message,
         html:  ` <!DOCTYPE html>
@@ -224,7 +226,7 @@ exports.fetchSiteDetails = async(req, res, next) => {
               <h1>Token Generation</h1>
             </div>
             <div class="email-body">
-              <p>Token for Admin ${user} generated link,</p>
+              <p>Token for Admin ${userName} generated link,</p>
               <p><strong>Token:</strong> <span class="token">${token}</span></p>
               <p>If you didn't request this token, please ignore this email.</p>
               <p>Thank you!</p>
@@ -235,11 +237,7 @@ exports.fetchSiteDetails = async(req, res, next) => {
       };
   
       await sendMail(options);
-      return res.status(200).json({
-        message: "Success",
-        description: "Email Sent!",
-       
-      });
+    
   
     } catch (error) {
       return res.status(500).json({

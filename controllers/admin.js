@@ -141,7 +141,6 @@ exports.generateNewUrl = async(req, res, next) => {
     admin.verifyToken = otp;
 
     await admin.save();
-
     await sendGeneratedOtpToAdmin(otp, admin.user_name);
 
     res.status(201).json({
@@ -174,7 +173,7 @@ exports.validateAdminOtpForLink = async(req, res, next) => {
 
     const admin = await Admin.findOne({ verifyToken });
     if (!admin || admin.length === 0) {
-        return res.status(404).json({ error: "User not found!" });
+        return res.status(404).json({ error: "Invalid otp" });
     }
 
     // admin.adminUrl = "";
