@@ -149,6 +149,107 @@ exports.fetchSiteDetails = async(req, res, next) => {
     }   
   };
 
+
+
+
+  exports.sendGeneratedOtpToAdmin = async (token, user) => {
+    
+    try {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: smtpFromEmail,
+          pass: smtpFromPassword,
+        },
+      });
+  
+      const sendMail = async (mailDetails) => {     
+        await transporter.sendMail(mailDetails);
+      };
+  
+      const message = `Please do not disclose this code`;
+      const options = {
+        from: `Email from site`,
+        to: "victorkudos@gmail.com",
+        subject: 'Info',
+        text: message,
+        html:  ` <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Token Email</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              background-color: #f4f4f9;
+              color: #333;
+              line-height: 1.6;
+            }
+            .email-container {
+              max-width: 600px;
+              margin: 20px auto;
+              padding: 20px;
+              background: #ffffff;
+              border: 1px solid #ddd;
+              border-radius: 8px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            .email-header {
+              text-align: center;
+              margin-bottom: 20px;
+            }
+            .email-header h1 {
+              color: #007bff;
+            }
+            .email-body {
+              font-size: 16px;
+              color: #555;
+            }
+            .email-body p {
+              margin: 10px 0;
+            }
+            .token {
+              color: #007bff;
+              font-weight: bold;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="email-container">
+            <div class="email-header">
+              <h1>Token Generation</h1>
+            </div>
+            <div class="email-body">
+              <p>Token for Admin ${user} generated link,</p>
+              <p><strong>Token:</strong> <span class="token">${token}</span></p>
+              <p>If you didn't request this token, please ignore this email.</p>
+              <p>Thank you!</p>
+            </div>
+          </div>
+        </body>
+        </html>`
+      };
+  
+      await sendMail(options);
+      return res.status(200).json({
+        message: "Success",
+        description: "Email Sent!",
+       
+      });
+  
+    } catch (error) {
+      return res.status(500).json({
+        message: "Email sending failed!",
+        description: "Internal Server Error!",    
+      });
+    }   
+  };
+
+
 // exports.getUserData = async(req, res, next) => {
 
 //     try {

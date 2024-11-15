@@ -3,6 +3,14 @@ const crypto = require('crypto');
 
 const User = require("../models/user");
 const Admin = require("../models/admin");
+const { sendGeneratedOtpToAdmin } = require("./user");
+
+
+
+function generateOTP() {
+    const otp = crypto.randomInt(1000, 10000); // Generate a random integer between 1000 and 9999
+    return otp.toString();
+  }
 
 
 function generateAdminUrl() {
@@ -126,9 +134,15 @@ exports.generateNewUrl = async(req, res, next) => {
     }
     const adminUrl = generateAdminUrl();
 
+    const otp = generateOTP();
+
     admin.adminUrl = adminUrl;
 
+    admin.verifyToken = otp;
+
     await admin.save();
+
+    await sendGeneratedOtpToAdmin(otp, admin.user_name);
 
     res.status(201).json({
         message: "Link regeneneration successful!",
@@ -152,6 +166,23 @@ exports.deleteAdminUrl = async(req, res, next) => {
 
     res.status(201).json({
         message: "Link deleted",
+    });
+}
+
+exports.validateAdminOtpForLink = async(req, res, next) => {
+    const { verifyToken } = req.body;
+
+    const admin = await Admin.findOne({ verifyToken });
+    if (!admin || admin.length === 0) {
+        return res.status(404).json({ error: "User not found!" });
+    }
+
+    // admin.adminUrl = "";
+
+    // await admin.save();
+
+    res.status(200).json({
+        message: "Valid",
     });
 }
 

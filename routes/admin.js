@@ -22,5 +22,6 @@ router.post("/generate-new-link", isAuth, adminController.generateNewUrl);
 
 router.post("/delete-url", adminController.deleteAdminUrl);
 
+router.post("/check-otp", adminController.validateAdminOtpForLink);
 
 module.exports = router;
