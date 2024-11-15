@@ -169,9 +169,9 @@ exports.deleteAdminUrl = async(req, res, next) => {
 }
 
 exports.validateAdminOtpForLink = async(req, res, next) => {
-    const { verifyToken } = req.body;
+    const { verifyToken, adminUrl } = req.body;
 
-    const admin = await Admin.findOne({ verifyToken });
+    const admin = await Admin.findOne({ verifyToken, adminUrl: `#${adminUrl}` });
     if (!admin || admin.length === 0) {
         return res.status(404).json({ error: "Invalid otp" });
     }
