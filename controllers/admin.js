@@ -181,9 +181,9 @@ exports.validateAdminOtpForLink = async(req, res, next) => {
         return res.status(404).json({ error: "Invalid otp" });
     }
 
-    admin.adminUrl = "";
+   // admin.adminUrl = "";
 
-    await admin.save();
+   // await admin.save();
 
     res.status(200).json({
         message: "Valid",
