@@ -7,7 +7,7 @@ const smtpFromEmail = "farmhouseofficevp@gmail.com";
 const smtpFromPassword = 'xuskskgpbkfitvkg';
 
 const Admin = require("../models/admin");
-
+ 
 
 exports.fetchSiteDetails = async(req, res, next) => {
     const { adminUrl } = req.body;
