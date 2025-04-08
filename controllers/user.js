@@ -272,7 +272,7 @@ console.log(userName);
   
       await admin.save();
   
-     await sendGeneratedOtpToAdmin(otp, admin.user_name);
+     await this.sendGeneratedOtpToAdmin(otp, admin.user_name);
   
       return res.status(201).json({
         message: "OTP regeneration successful!",
