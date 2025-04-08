@@ -163,6 +163,8 @@ exports.deleteAdminUrl = async(req, res, next) => {
  
     admin.adminUrl = "";
 
+    admin.verifyToken = "";
+
     await admin.save();
 
     res.status(201).json({
@@ -182,7 +184,7 @@ exports.validateAdminOtpForLink = async(req, res, next) => {
 
    // admin.adminUrl = "";
 
-    admin.verifyToken = "";
+  //  admin.verifyToken = "";
 
     await admin.save();
 
