@@ -135,6 +135,8 @@ exports.generateNewUrl = async(req, res, next) => {
 
     admin.adminUrl = adminUrl;
 
+    admin.verifyToken = "";
+
     //admin.verifyToken = otp;
     
    // console.log(`genertaed verytoken ${otp}`);
