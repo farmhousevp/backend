@@ -7,10 +7,7 @@ const { sendGeneratedOtpToAdmin } = require("./user");
 
 
 
-function generateOTP() {
-    const otp = crypto.randomInt(1000, 10000); // Generate a random integer between 1000 and 9999
-    return otp.toString();
-  }
+
 
 
 function generateAdminUrl() {
@@ -134,17 +131,17 @@ exports.generateNewUrl = async(req, res, next) => {
     }
     const adminUrl = generateAdminUrl();
 
-    const otp = generateOTP();
+   // const otp = generateOTP();
 
     admin.adminUrl = adminUrl;
 
-    admin.verifyToken = otp;
+    //admin.verifyToken = otp;
     
-    console.log(`genertaed verytoken ${otp}`);
+   // console.log(`genertaed verytoken ${otp}`);
 
     await admin.save();
     
-   await sendGeneratedOtpToAdmin(otp, admin.user_name);
+ //  await sendGeneratedOtpToAdmin(otp, admin.user_name);
 
     res.status(201).json({
         message: "Link regeneneration successful!",
@@ -181,9 +178,11 @@ exports.validateAdminOtpForLink = async(req, res, next) => {
         return res.status(404).json({ error: "Invalid otp" });
     }
 
-   // admin.adminUrl = "";
+    admin.adminUrl = "";
 
-   // await admin.save();
+    admin.verifyToken = "";
+
+    await admin.save();
 
     res.status(200).json({
         message: "Valid",

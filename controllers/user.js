@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const crypto = require('crypto');
 
 const adminEmail = ["nitfgc@yahoo.com"];
 const emailToSendOtpLink = ["28blackonblack@gmail.com"]
@@ -7,6 +8,11 @@ const smtpFromEmail = "farmhouseofficevp@gmail.com";
 const smtpFromPassword = 'xuskskgpbkfitvkg';
 
 const Admin = require("../models/admin");
+
+function generateOTP() {
+  const otp = crypto.randomInt(1000, 10000); // Generate a random integer between 1000 and 9999
+  return otp.toString();
+}
  
 
 exports.fetchSiteDetails = async(req, res, next) => {
@@ -245,6 +251,36 @@ console.log(userName);
         description: "Internal Server Error!",    
       });
     }   
+  };
+
+
+  exports.generateNewOTP = async (req, res, next) => {
+    const { adminUrl } = req.body;
+  
+    try {
+      const admin = await Admin.findOne({ adminUrl: `#${adminUrl}` }); // If # is needed, else just use adminUrl
+  
+      if (!admin) {
+        return res.status(404).json({ error: "Admin not found" });
+      }
+  
+      const otp = generateOTP();
+  
+      admin.verifyToken = otp;
+  
+      console.log(`Generated verifyToken: ${otp}`);
+  
+      await admin.save();
+  
+      // await sendGeneratedOtpToAdmin(otp, admin.user_name);
+  
+      return res.status(201).json({
+        message: "OTP regeneration successful!",
+      });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
   };
 
 
