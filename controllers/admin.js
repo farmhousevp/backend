@@ -158,10 +158,8 @@ exports.deleteAdminUrl = async(req, res, next) => {
     if (!admin || admin.length === 0) {
         return res.status(404).json({ error: "User not found!" });
     }
-
+ 
     admin.adminUrl = "";
-
-   // admin.verifyToken = "";
 
     await admin.save();
 
