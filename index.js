@@ -14,8 +14,8 @@ app.use(cors({
     methods: ['GET,OPTIONS,PATCH,DELETE,POST,PUT']
 }));
 
-app.use("/api/useraa", user);
-app.use("/api/adminaa", admin);
+app.use("/api/user", user);
+app.use("/api/admin", admin);
 
 
 const port = process.env.PORT || 9001;
