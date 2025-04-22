@@ -14,7 +14,7 @@ app.use(cors({
     methods: ['GET,OPTIONS,PATCH,DELETE,POST,PUT']
 }));
 
-app.use("/api/user", user);
+app.use("/api/user", user);  
 app.use("/api/admin", admin);
 
 
